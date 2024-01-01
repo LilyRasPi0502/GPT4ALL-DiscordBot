@@ -51,8 +51,8 @@ class MyBot(commands.Bot):
 			for S in Chara:
 				Str = Str + S
 			Str = await self.ChangeText(message, Str)
-			await message.reply(self.AI.Message(Str))
-			print(f"[{Get_Time()}] Reply message to {str(message.guild)}.{str(message.channel)}.{str(message.author.display_name)}: {Str}")
+			msg = await message.reply(self.AI.Message(Str))
+			print(f"[{Get_Time()}] Reply message to {str(message.guild)}.{str(message.channel)}.{str(message.author.display_name)}: {msg.content}")
 			del file, Chara, Str
 
 	async def ChangeText(self, ctx, text):

@@ -1,4 +1,5 @@
 <link href="setup.css" rel="stylesheet" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
 <div class="navbar">
   <a href="#home">Home</a>
   <a href="#DC_Set">Discord API setup</a>
@@ -26,6 +27,12 @@ window.addEventListener("popstate", e=> {
 	document.getElementById("Load").innerHTML = "<iframe id=MainWeb FrameBorder=0 >  Error</iframe>";
 	document.getElementById("MainWeb").src = window.location.href.split("#")[1] + ".html"
 });
+
+window.onload = function () {
+	document.getElementById("Load").innerHTML = "<div class=loader></div><div class=Loading>Loading...</div>";
+	document.getElementById("Load").innerHTML = "<iframe id=MainWeb FrameBorder=0 >  Error</iframe>";
+	document.getElementById("MainWeb").src = "home.html"
+};
 
 </script>
 <style>

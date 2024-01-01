@@ -1,3 +1,4 @@
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
 <h1>
 	Character setup
 </h1><br>
@@ -58,6 +59,10 @@ function printFile() {
 	Http.open("GET", "CharacterSet.md");
 	Http.send();
 	Http.onreadystatechange = (e) => {
+		while(!Http.responseText){
+			console.log(Http.responseText);
+		}
+		console.log(Http.responseText);
 		data = Http.responseText.split("# Character info")[1];
 		unused_data = Http.responseText.split("# Character info")[0];
 		data = data.replace("\n", "");
@@ -86,7 +91,7 @@ function SaveFile(){
 
 	dlBtn.setAttribute("href", window.URL.createObjectURL(myFile));
 	dlBtn.setAttribute("download", fileName);
-	dlBtn.click();
+	//dlBtn.click();
 	document.getElementById("Main").innerHTML = fileContent;
 	
 }
