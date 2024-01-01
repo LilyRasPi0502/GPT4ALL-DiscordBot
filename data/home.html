@@ -1,48 +1,48 @@
-<h1>
-	Home
-</h1>
-<table style="height: 90%;width: 100%;">
-	<tr style="height: 95%;width: 100%;">
-		<td style="height: 95%;width: 50%;">
-			<iframe style="height: 95%;width: 100%;" FrameBorder=0 src=https://gizmodo.com.au/wp-content/uploads/2021/02/19/opgj43no5dqhgafhypuk.gif?quality=75&w=640&h=360&crop=1>
-				Error
-			</iframe>
-		</td>
-		<td width=50% align="left" valign="top">
-			<div>
-				就Discord Bot<br>
-				用GPT4ALL專案製作的<br>
-				詳細在More有連結<br><br>
-				在Discord API setup能設定機器人的ID(標註記器人用的)<br>
-				以及Discord API token(機器人登入用的)<br><br>
-				在Character setup能夠設定機器人的角色設定<br><br>
-				還沒寫Model選擇系統我爛對不起
-			</div>
-		</td>
-	</tr>
-</table>
+<link href="setup.css" rel="stylesheet" />
+<div class="navbar">
+  <a href="#home">Home</a>
+  <a href="#DC_Set">Discord API setup</a>
+  <a href="#Chara_Set">Character setup</a>
+  <div class="dropdown">
+    <button class="dropbtn">More
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="https://gpt4all.io/index.html">GPT4ALL Model</a>
+      <a href="https://discord.com/developers/applications">Discord Developers</a>
+      <a href="http://dvsite.f5.si/html/about%20me">About...</a>
+    </div>
+  </div>
+</div>
+<div class=Panel>
+<div id="Load" style="height: 95%;">
+	<div class="loader"></div>
+	<div class="Loading">Loading...</div>
+</div></div>
+<script>
 
+window.addEventListener("popstate", e=> {
+	document.getElementById("Load").innerHTML = "<div class=loader></div><div class=Loading>Loading...</div>";
+	document.getElementById("Load").innerHTML = "<iframe id=MainWeb FrameBorder=0 >  Error</iframe>";
+	document.getElementById("MainWeb").src = window.location.href.split("#")[1] + ".html"
+});
 
+window.onload = function () {
+	document.getElementById("Load").innerHTML = "<div class=loader></div><div class=Loading>Loading...</div>";
+	document.getElementById("Load").innerHTML = "<iframe id=MainWeb FrameBorder=0 >  Error</iframe>";
+	document.getElementById("MainWeb").src = "home.html"
+};
+
+</script>
 <style>
 
 .Panel{
+	margin: 5px 0px 0px 0px;
 	border-radius: 15px;
 	background: #222222;
 	padding: 30px;
-	height: 90%;
+	height: 87%;
 	
-}
-div{
-	font-size: 20px;
-}
-h1{
-	font-size: 50px;
-	margin: 0px;
-}
-html, body{
-	margin: 0px 0px 0px 0px;
-	font-family: Cursive;
-	color: #ffffff;
 }
 
 </style>
