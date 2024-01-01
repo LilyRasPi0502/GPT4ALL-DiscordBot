@@ -1,0 +1,110 @@
+<h1>
+		Discord AIP setup
+</h1><br>
+<div id=Main>
+	<table style='width:100%'>
+		<tr>
+			<td style='width:10%'>
+				<font>Bot ID: </font>
+			</td>
+			<td style='width:80%'>
+				<input id=BotID type=text>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<font color=#ffffff>Token: </font>
+			</td>
+			<td>
+				<input id=token type=password>
+			</td>
+		</tr>
+	</table></br>
+	<div style='margin-left: 20px;'>
+		<input type=checkbox onclick='myFunction()'>Show Token
+	</div>
+<div>
+		<input type=button value=Save onclick=SaveFile()>
+		<font color=#ff0000>Please save to data folder</font>
+		<a href="#" hidden target="_blank" id="download">Download</a>
+</div>
+
+<style>
+
+.Panel{
+	border-radius: 15px;
+	background: #222222;
+	padding: 30px;
+	height: 90%;
+	
+}
+h1{
+	font-size: 50px;
+	margin: 0px;
+}
+html, body{
+	margin: 0px 0px 0px 0px;
+	font-family: Cursive;
+	color: #ffffff;
+}
+font{
+	font-size: 40px;
+	width: 15%;
+}
+input {
+	padding: 12px 20px;
+	margin: 8px 0;
+	box-sizing: border-box;
+}
+
+</style>
+
+<script>
+
+var BotID = document.getElementById("BotID");
+var token = document.getElementById("token");
+var unused_data = "";
+window.onload = function () {
+	printFile();
+};
+function printFile() {
+	const Http = new XMLHttpRequest();
+	Http.open("GET", "CharacterSet.md");
+	Http.send();
+	Http.onreadystatechange = (e) => {
+		data = Http.responseText.split("# Character info")[0];
+		unused_data = Http.responseText.split("# Character info")[1];
+		data = data.replace("# Discord API setting", "");
+		data = data.replace("\n", "");
+		data = data.split("- ");
+		TToken = data[2];
+		ID = data[4];
+		BotID.value = ID;
+		token.value = TToken;
+	}
+}
+function myFunction() {
+  if (token.type === "password") {
+    token.type = "text";
+  } else {
+    token.type = "password";
+  }
+}
+function SaveFile(){
+
+	ChangeData = "# Discord API setting\n- Token\n  - "+token.value+"\n- ID\n  - "+BotID.value+"\n\n# Character info"
+	data = ChangeData + unused_data;
+	var fileName = "CharacterSet.md";
+	var fileContent = data;
+
+	var myFile = new Blob([fileContent], {type: 'text/plain'});
+	window.URL = window.URL || window.webkitURL;
+	var dlBtn = document.getElementById("download");
+
+	dlBtn.setAttribute("href", window.URL.createObjectURL(myFile));
+	dlBtn.setAttribute("download", fileName);
+	dlBtn.click();
+	document.getElementById("Main").innerHTML = fileContent;
+	
+}
+</script>

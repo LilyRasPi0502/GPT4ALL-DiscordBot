@@ -1,0 +1,93 @@
+<h1>
+	Character setup
+</h1><br>
+
+<div id=Main>
+	<textarea id=CharaSet>Loading...</textarea>
+<div>
+		<input type=button value=Save onclick=SaveFile()>
+		<font color=#ff0000>Please save to data folder</font>
+		<a href="#" hidden target="_blank" id="download">Download</a>
+</div>
+
+<style>
+
+.Panel{
+	border-radius: 15px;
+	background: #222222;
+	padding: 30px;
+	height: 90%;
+	
+}
+h1{
+	font-size: 50px;
+	margin: 0px;
+}
+html, body{
+	margin: 0px 0px 0px 0px;
+	font-family: Cursive;
+	color: #ffffff;
+}
+font{
+	font-size: 40px;
+	width: 15%;
+}
+input {
+	padding: 12px 20px;
+	margin: 8px 0;
+	box-sizing: border-box;
+}
+textarea {
+	resize: none;
+	font-family: Cursive;
+	width:60%;
+	height:50%;
+	font-size:48px;
+}
+</style>
+
+<script>
+
+var CharaSet = document.getElementById("CharaSet");
+var unused_data = "";
+window.onload = function () {
+	printFile();
+};
+function printFile() {
+	const Http = new XMLHttpRequest();
+	Http.open("GET", "CharacterSet.md");
+	Http.send();
+	Http.onreadystatechange = (e) => {
+		data = Http.responseText.split("# Character info")[1];
+		unused_data = Http.responseText.split("# Character info")[0];
+		data = data.replace("\n", "");
+		data = data.split("- ");
+		Str = "";
+		for (let i = 1; i < data.length; i++) {
+			Str = Str + data[i];
+		}
+		CharaSet.innerHTML = Str;
+	}
+}
+function SaveFile(){
+	Str = "";
+	StrLi = CharaSet.innerHTML.split("\n");
+	for (let i = 0; i < StrLi.length; i++) {
+		Str = Str + "- " + StrLi[i] + "\n";
+	}
+	ChangeData = "# Character info\n" + Str
+	data = unused_data + ChangeData;
+	var fileName = "CharacterSet.md";
+	var fileContent = data;
+
+	var myFile = new Blob([fileContent], {type: 'text/plain'});
+	window.URL = window.URL || window.webkitURL;
+	var dlBtn = document.getElementById("download");
+
+	dlBtn.setAttribute("href", window.URL.createObjectURL(myFile));
+	dlBtn.setAttribute("download", fileName);
+	dlBtn.click();
+	document.getElementById("Main").innerHTML = fileContent;
+	
+}
+</script>
