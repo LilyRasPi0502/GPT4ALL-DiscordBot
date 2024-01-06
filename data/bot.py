@@ -11,12 +11,14 @@ intents.members = True
 
 bot_ID = ""
 Token = ""
+Model = ""
 
 class MyBot(commands.Bot):
 	
 	def __init__(self, command_prefix, intent):
 		commands.Bot.__init__(self, command_prefix=command_prefix, intents=intent)
-		self.AI = GPT()
+		self.AI = GPT(model=Model)
+		self.Reflash_CharacterAI.start()
 
 	async def on_ready(self):
 		self.message1 = f"正在使用身分: {self.user}({self.user.id})"
@@ -51,12 +53,15 @@ class MyBot(commands.Bot):
 			for S in Chara:
 				Str = Str + S
 			Str = await self.ChangeText(message, Str)
-			msg = await message.reply(self.AI.Message(Str))
+			try:
+				msg = await message.reply(self.AI.Message(Str))
+			except:
+				msg = await message.reply("很抱歉,我無法回答這種問題")
 			print(f"[{Get_Time()}] Reply message to {str(message.guild)}.{str(message.channel)}.{str(message.author.display_name)}: {msg.content}")
 			del file, Chara, Str
 
 	async def ChangeText(self, ctx, text):
-		contant = f"{ctx.guild}.{ctx.channel}.{ctx.author.display_name}：「{ctx.content}」"
+		contant = f"然後來自{ctx.guild}.{ctx.channel}的使用者[{ctx.author.display_name}]傳送了訊息：「{ctx.content}」請直接回答。"
 		text = text.replace("&guild;", str(ctx.guild))
 		text = text.replace("&channel;", str(ctx.channel))
 		text = text.replace("&mauthor;", str(ctx.author.display_name))
@@ -88,14 +93,16 @@ class MyBot(commands.Bot):
 def getSetting():
 	global bot_ID
 	global Token
+	global Model
 	f = open("data/CharacterSet.md", "r", encoding="utf-8")
 	file = f.read()
 	file = file.replace("# Discord API setting", "")
 	file = file.replace("\n", "")
 	Setting= file.split("# Character info")
 	Setting = Setting[0].split("- ")
-	bot_ID = Setting[4]
 	Token = Setting[2]
+	bot_ID = Setting[4]
+	Model = Setting[6]
 	f.close()
 	del file, Setting
 

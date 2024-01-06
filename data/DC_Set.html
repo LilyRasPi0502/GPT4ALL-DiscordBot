@@ -1,6 +1,6 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <h1>
-		Discord AIP setup
+		Bot connection setup
 </h1><br>
 <div id=Main>
 	<table style='width:100%'>
@@ -18,6 +18,14 @@
 			</td>
 			<td>
 				<input id=token type=password>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<font color=#ffffff>Model: </font>
+			</td>
+			<td>
+				<input id=model type=text>
 			</td>
 		</tr>
 	</table></br>
@@ -64,6 +72,7 @@ input {
 
 var BotID = document.getElementById("BotID");
 var token = document.getElementById("token");
+var model = document.getElementById("model");
 var unused_data = "";
 window.onload = function () {
 	printFile();
@@ -80,8 +89,10 @@ function printFile() {
 		data = data.split("- ");
 		TToken = data[2];
 		ID = data[4];
+		Mmodel = data[6];
 		BotID.value = ID;
 		token.value = TToken;
+		model.value = Mmodel;
 	}
 }
 function myFunction() {
@@ -93,7 +104,7 @@ function myFunction() {
 }
 function SaveFile(){
 
-	ChangeData = "# Discord API setting\n- Token\n  - "+token.value+"\n- ID\n  - "+BotID.value+"\n\n# Character info"
+	ChangeData = "# Discord API setting\n- Token\n  - "+token.value+"\n- ID\n  - "+BotID.value+"\n- Model\n  - "+model.value+"\n\n# Character info"
 	data = ChangeData + unused_data;
 	var fileName = "CharacterSet.md";
 	var fileContent = data;
